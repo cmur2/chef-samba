@@ -61,9 +61,10 @@ end
 unless node["samba"]["passdb_backend"] =~ /^ldapsam/
   data_bag(node["samba"]["users_data_bag"]).each do |item_name|
     u = data_bag_item(users_databag_name, item_name)
+    next if not u["smbpasswd"]
     samba_user u["id"] do
       password u["smbpasswd"]
       action [:create, :enable]
-    end if u["smbpasswd"]
+    end
   end
 end
