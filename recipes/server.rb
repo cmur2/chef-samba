@@ -28,10 +28,6 @@ shares["shares"].each do |k,v|
   end
 end
 
-unless node["samba"]["passdb_backend"] =~ /^ldapsam/
-  users = search(node["samba"]["users_data_bag"], "*:*")
-end
-
 package value_for_platform(
   ["ubuntu", "debian", "arch"] => { "default" => "samba" },
   ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => "samba3x" },
@@ -62,8 +58,9 @@ template node["samba"]["config"] do
   notifies :restart, "service[svcs]"
 end
 
-if users
-  users.each do |u|
+unless node["samba"]["passdb_backend"] =~ /^ldapsam/
+  data_bag(node["samba"]["users_data_bag"]).each do |item_name|
+    u = data_bag_item(users_databag_name, item_name)
     samba_user u["id"] do
       password u["smbpasswd"]
       action [:create, :enable]
