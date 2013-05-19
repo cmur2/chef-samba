@@ -55,7 +55,7 @@ template node["samba"]["config"] do
   group "root"
   mode 00644
   variables :shares => shares["shares"]
-  notifies :restart, "service[svcs]"
+  notifies :restart, resources(:service => svcs)
 end
 
 unless node["samba"]["passdb_backend"] =~ /^ldapsam/
