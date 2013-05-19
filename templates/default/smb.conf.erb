@@ -10,10 +10,13 @@
   server string = <%= node["samba"]["server_string"] %>
   security = <%= node["samba"]["security"] %>
   interfaces = <%= node["samba"]["interfaces"] %>
+  bind interfaces only = <%= node["samba"]["bind_interfaces_only"] %>
   hosts allow = <%= node["samba"]["hosts_allow"] %>
   load printers = <%= node["samba"]["load_printers"] %>
   passdb backend = <%= node["samba"]["passdb_backend"] %>
   dns proxy = <%= node["samba"]["dns_proxy"] %>
+  map to guest = <%= node["samba"]["map_to_guest"] %>
+  socke options = <%= node["samba"]["socket_options"] %>
 
 #============================ Share Definitions ==============================
 <% @shares.each do |share,option| -%>
