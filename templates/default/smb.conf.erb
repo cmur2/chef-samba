@@ -19,6 +19,7 @@
   dns proxy = <%= node["samba"]["dns_proxy"] %>
   map to guest = <%= node["samba"]["map_to_guest"] %>
   socket options = <%= node["samba"]["socket_options"] %>
+  syslog = <%= node["samba"]["syslog"] %>
 
 #============================ Share Definitions ==============================
 <% @shares.each do |share,option| -%>
